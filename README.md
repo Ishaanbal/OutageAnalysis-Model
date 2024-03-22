@@ -92,23 +92,23 @@ This Groupby table was used to aggregate over both YEAR and CAUSE.CATEGORY, resu
 
 ## Assessment of Missingness
 
-#### Missingness Analysis of OUTAGE.DURATION
-We chose to analyze the missingness of OUTAGE.DURATION, because it was the main metric we used to measure the intensity of an attack. This was also an important metric because the missingness of outage duration clearly correlated with the missingness of other time-based columns, like OUTAGE.START and OUTANGE.END, columns we were interested in using for prediction.
+#### Missingness Analysis of `OUTAGE.DURATION`
+We chose to analyze the missingness of `OUTAGE.DURATION`, because it was the main metric we used to measure the intensity of an attack. This was also an important metric because the missingness of outage duration clearly correlated with the missingness of other time-based columns, like `OUTAGE.START` and `OUTAGE.END`, columns we were interested in using for prediction.
 
-Running permutation tests over the missingness of OUTAGE.DURATION and two columns: YEAR and CLIMATE.REGION, we ended up with the graphs below. 
+Running permutation tests over the missingness of `OUTAGE.DURATION` and two columns: `YEAR` and `CLIMATE.REGION`, we ended up with the graphs below. 
 
-YEAR: p-value = 0.0
-The result for YEAR, with a p-value of 0, suggests a strong association between the year and the missingness of OUTAGE.DURATION. This is consistent with the data being missing at random (MAR) with respect to YEAR.
+`YEAR`: p-value = 0.0
+The result for `YEAR`, with a p-value of 0, suggests a strong association between the year and the missingness of `OUTAGE.DURATION`. This is consistent with the data being missing at random (MAR) with respect to `YEAR`.
 <iframe src="assets/MAR_example.html" width="800" height="600" frameborder="0" ></iframe>
 
-CLIMATE.REGION: p-value = 0.292
-On the other hand, the p-value for CLIMATE.REGION is around 0.29, which does not indicate a significant association. This suggests that the missingness of OUTAGE.DURATION is not dependent on the CLIMATE.REGION, at least not to a statistically significant extent within the number of permutations tested.
+`CLIMATE.REGION`: p-value = 0.292
+On the other hand, the p-value for `CLIMATE.REGION` is around 0.29, which does not indicate a significant association. This suggests that the missingness of `OUTAGE.DURATION` is not dependent on the `CLIMATE.REGION`, at least not to a statistically significant extent within the number of permutations tested.
 <iframe src="assets/non_MAR_example.html" width="800" height="600" frameborder="0" ></iframe>
 
 
-#### The Case for CAUSE.CATEGORY.DETAIL Being NMAR
+#### The Case for `CAUSE.CATEGORY.DETAIL` Being NMAR
 
-Upon initial analysis, the CAUSE.CATEGORY.DETAIL column's missingness seems to exhibit characteristics of NMAR. This inference is drawn from the observation that detailed cause information is more frequently absent in cases where the outage is of a sensitive nature, such as outages due to cyber-attacks or other security-related issues. This pattern suggests that the details of these outages might be deliberately withheld or not recorded due to their sensitive or controversial nature, making the missingness dependent on the unobserved data itself.
+Upon initial analysis, the `CAUSE.CATEGORY.DETAIL` column's missingness seems to exhibit characteristics of NMAR. This inference is drawn from the observation that detailed cause information is more frequently absent in cases where the outage is of a sensitive nature, such as outages due to cyber-attacks or other security-related issues. This pattern suggests that the details of these outages might be deliberately withheld or not recorded due to their sensitive or controversial nature, making the missingness dependent on the unobserved data itself.
 
 
 ---
@@ -130,7 +130,7 @@ Given that a p-value of 0.2478 is significantly above our alpha level of 0.05, w
 ## Framing a Prediction Problem
 
 Based on the exploration above, our immediate question was as follows: _**Based on the data available just moments after a power outage, are we able to predict whether the outage was due to an intentional attack?**_
-For us, this boiled down to a Binary Classification Task, we used the four features OUTAGE.START.TIME, MONTH, NERC.REGION, U.S._STATE (representing a spread of time and geographical info). We will predict the response variable IS_INTENTIONAL, a column we engineered from CAUSE.CATEGORY -- evaluating to True if the cause was an intentional attack and False otherwise. We chose this instead of multiclass classification since we were only concerned with predicting the intentional attacks in our research question, and believed that we could get more accurate and generalizable results predicting a binary value, as opposed to all seven of the classes present in CAUSE.CATEGORY. 
+For us, this boiled down to a Binary Classification Task, we used the four features `OUTAGE.START.TIME`, `MONTH`, `NERC.REGION`, `U.S._STATE` (representing a spread of time and geographical info). We will predict the response variable `IS_INTENTIONAL`, a column we engineered from `CAUSE.CATEGORY` -- evaluating to True if the cause was an intentional attack and False otherwise. We chose this instead of multiclass classification since we were only concerned with predicting the intentional attacks in our research question, and believed that we could get more accurate and generalizable results predicting a binary value, as opposed to all seven of the classes present in `CAUSE.CATEGORY`. 
 
 To measure the effectiveness of our model, we used accuracy. We chose accuracy because while it was important for us to be precise, we also felt that it was just as important to think about recall, and our ability to generalize. False Negatives are costly in our scenario because it would mean an intentional attack going unnoticed, and perpetrators getting away. Conversely, False Positives are also important, due to their ability to result in a waste of resources, as additional support could be dispatched towards the site of a false intentional attack. These reasons led us to accuracy, which considers both true and false negatives equally. 
 
@@ -141,7 +141,7 @@ To measure the effectiveness of our model, we used accuracy. We chose accuracy b
 
 #### Model Description
 The model we chose to build on was a Logistic Regression Classifier, predominantly used for binary classification tasks. 
-Our model aims to predict whether a power outage is intentional (IS_INTENTIONAL = 1) or not (IS_INTENTIONAL = 0).
+Our model aims to predict whether a power outage is intentional (`IS_INTENTIONAL` = 1) or not (`IS_INTENTIONAL` = 0).
 
 #### Model Parameters
 **Solver**: The logistic regression uses the 'saga' solver, which was chosen due to its efficiency in large datasets and support for regularization; an issue we were running into.
@@ -166,9 +166,9 @@ The model shows strong performance based on our observed accuracy scores, with a
 
 ## Final Model
 #### Additional Features
-Looking at the types of features we had, we realized we had a strong focus on time, without much consideration for geography. Split into multiple columns after OneHot Encoding, (the **us state** and **NERC regions** as partitioned by the North American Electric Reliability Corporation) will serve as our model insight into the geographical location an outage is occurring at.
+Looking at the types of features we had, we realized we had a strong focus on time, without much consideration for geography. Split into multiple columns after OneHot Encoding, (the **US state** and **NERC regions** as partitioned by the North American Electric Reliability Corporation) will serve as our model insight into the geographical location an outage is occurring at.
 
-Along with the addition of this feature, after testing, we decided to remove the ANOMALY.LEVEL feature, as we believed it was counterproductive to our efforts in being able to generalize for the future. Removing complexity in this case will help us slightly prioritize recall over precision.
+Along with the addition of this feature, after testing, we decided to remove the `ANOMALY.LEVEL` feature, as we believed it was counterproductive to our efforts in being able to generalize for the future. Removing complexity in this case will help us slightly prioritize recall over precision.
 
 #### Final Model Breakdown
 
@@ -197,6 +197,8 @@ We were very happy with the level of accuracy we were able to get our model to. 
 ## Fairness Analysis
 
 ### Groups and Evaluation Metric
+
+#### To make our groups, we looked at the column `PC.REALGSP.REL`
 - **Group X:** States with a Per Capita Real GSP (Gross State Product) relative to the total Per Capita Real GDP of the U.S. **greater than 1** (Richer States).
 - **Group Y:** States with a Per Capita Real GSP relative to the total Per Capita Real GDP of the U.S. **less than or equal to 1** (Poorer States).
 - The evaluation metric chosen for this analysis is **accuracy**, which quantifies the proportion of correct predictions out of all predictions made by the model.
@@ -213,6 +215,14 @@ We were very happy with the level of accuracy we were able to get our model to. 
 - **p-value:** The p-value obtained from the permutation test. This value indicates the probability of observing a test statistic as extreme as, or more extreme than, the one observed if the null hypothesis were true.
 
 Based on the p-value obtained from the permutation test:
-- **p-value > 0.05**, we fail to reject the null hypothesis, indicating insufficient evidence to conclude that the model's performance differs significantly across richer and poorer states. This suggests that any observed differences in accuracy across these groups can be attributed to random chance, and the model can be considered fair with respect to predicting intentional power outages based on economic status.
+- **p-value > 0.05**, we fail to reject the null hypothesis, indicating insufficient evidence to conclude that the model's performance differs significantly across richer and poorer states. This suggests that any observed differences in accuracy across these groups can be attributed to random chance, and the model can be considered fair with respect to predicting intentional power outages based on economic status. The values from our fairness analysis are shown in the table below:
+
+| Metric               | Value                  |
+|----------------------|------------------------|
+| Accuracy (Richer)    | 0.8112                 |
+| Accuracy (Poorer)    | 0.8250                 |
+| Observed Difference  | -0.0138                |
+| p-value              | 0.8116                 |
+
 
 ---
