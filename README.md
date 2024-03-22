@@ -1,4 +1,4 @@
-## Analyzing Intentional Attacks on Electricity Providers
+# Analyzing Intentional Attacks on Electricity Providers
 
 When we think of power outages, we usually associate them with crazy weather patterns or infrastructure failure. However, intentional attacks to our electricity grid are on the rise. These acts of domestic terror often cause serious damage and go unpunished. Therefore, we raise the research question of how to minimize these attacks to avoid Americans getting left in the dark.
 
@@ -17,7 +17,18 @@ To explore our research question, we looked at plenty of data from our 1534 row 
 
 ## Data Cleaning and Exploratory Data Analysis
 
+To begin working with our data, we had to clean it up through multiple steps that would allow the computer to read the file how we intended.
 
+### Reading and Initial Cleaning
+Our analysis began by importing the `outage.xlsx` file, carefully skipping the initial metadata rows to ensure our DataFrame contained only pertinent information. We also eliminated rows and columns that did not contribute to our analysis, like the blank column that said 'variables' and the row specifying the units of each column. 
+
+### Timestamp Conversion
+Next, we merged date and time columns into single datetime columns (`OUTAGE.START` and `OUTAGE.END`). This step was crucial for accurately calculating outage durations and understanding their distribution over time.
+
+### Outage Duration Calculation
+The calculation of outage durations (`OUTAGE.DUR.DT`) from the `OUTAGE.START` and `OUTAGE.END` timestamps allowed us to get the duration of each outage event in datetime format. This metric was helpful in our exploratory analysis, enabling us to identify patterns and trends in outage occurrences and durations.
+
+Through these steps, our dataset was transformed into a structured and analyzable format, laying the groundwork for insightful exploration and analysis.
 
 ---
 
