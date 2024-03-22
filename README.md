@@ -99,6 +99,13 @@ We chose to analyze the missingness of OUTAGE.DURATION, because it was the main 
 
 Running permutation tests over the missingness of OUTAGE.DURATION and two columns: YEAR and CLIMATE.REGION, we ended up with the graphs below. 
 
+YEAR: p-value = 0.0
+The result for YEAR, with a p-value of 0, suggests a strong association between the year and the missingness of OUTAGE.DURATION. This is consistent with the data being missing at random (MAR) with respect to YEAR.
+<iframe src="assets/MAR_example.html" width="800" height="600" frameborder="0" ></iframe>
+
+CLIMATE.REGION: p-value = 0.292
+On the other hand, the p-value for CLIMATE.REGION is around 0.29, which does not indicate a significant association. This suggests that the missingness of OUTAGE.DURATION is not dependent on the CLIMATE.REGION, at least not to a statistically significant extent within the number of permutations tested.
+<iframe src="assets/non_MAR_example.html" width="800" height="600" frameborder="0" ></iframe>
 
 
 #### The Case for CAUSE.CATEGORY.DETAIL Being NMAR
