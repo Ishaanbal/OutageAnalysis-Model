@@ -30,6 +30,53 @@ The calculation of outage durations (`OUTAGE.DUR.DT`) from the `OUTAGE.START` an
 
 Through these steps, our dataset was transformed into a structured and analyzable format, laying the groundwork for insightful exploration and analysis.
 
+### Univariate Analysis
+
+<iframe
+  src="univariate_analysis1/file-name.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+<iframe
+  src="univariate_analysis2/file-name.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+### Bivariate Analysis
+
+<iframe
+  src="bivariate_analysis/file-name.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+This scatter plot depicts the number of customers affected by an outage proportional to how long the outage lasted. 
+
+### Interesting Aggregates
+
+<iframe
+  src="aggregation_analysis1/file-name.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+These stacked bar graphs shows the distributions of cause category in each climate region in the US. This chart highlights how intentional attacks are much more likely to cause a power outage in the Northwest and Southwest climate regions. 
+
+<iframe
+  src="aggregation_analysis2/file-name.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+This graph shows what proportion of outages were caused by intentional attack in each year from 2000 to 2016. We can observe that intentional attacks were rare from 2000 to 2003 as low percentages of outages were caused by attacks. Then, from 2004 to 2010, we see that there were zero intentional attacks in this dataset. In 2011, however, this number balloons to around 45%, and reaches a maximum of over 55% in 2016. 
+
 ---
 
 ## Assessment of Missingness
