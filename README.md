@@ -33,7 +33,7 @@ Through these steps, our dataset was transformed into a structured and analyzabl
 ### Univariate Analysis
 
 <iframe
-  src="assets/univariate_analysis1/file-name.html"
+  src="assets/univariate_analysis1.html"
   width="800"
   height="600"
   frameborder="0"
@@ -42,18 +42,18 @@ Through these steps, our dataset was transformed into a structured and analyzabl
 This chart shows how common each type of attack is, splitting up the data by cause category.
 
 <iframe
-  src="assets/univariate_analysis2/file-name.html"
+  src="assets/univariate_analysis2.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
 
-
+This histogram shows the distributions of outage durations. This graph showed us that outages are heavily skewed towards lower durations. As the range of durations goes from almost no time to around 75 days, we encourage you to zoom in on this graph using the controls in the margins!
 
 ### Bivariate Analysis
 
 <iframe
-  src="assets/bivariate_analysis/file-name.html"
+  src="assets/bivariate_analysis.html"
   width="800"
   height="600"
   frameborder="0"
@@ -64,7 +64,7 @@ This scatter plot depicts the number of customers affected by an outage proporti
 ### Interesting Aggregates
 
 <iframe
-  src="assets/aggregation_analysis1/file-name.html"
+  src="assets/aggregation_analysis1.html"
   width="800"
   height="600"
   frameborder="0"
@@ -73,7 +73,7 @@ This scatter plot depicts the number of customers affected by an outage proporti
 These stacked bar graphs shows the distributions of cause category in each climate region in the US. This chart highlights how intentional attacks are much more likely to cause a power outage in the Northwest and Southwest climate regions. 
 
 <iframe
-  src="assets/aggregation_analysis2/file-name.html"
+  src="assets/aggregation_analysis2.html"
   width="800"
   height="600"
   frameborder="0"
