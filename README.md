@@ -89,9 +89,17 @@ This graph shows what proportion of outages were caused by intentional attack in
 
 ## Hypothesis Testing
 
+#### Null Hypothesis (H0):
+The distribution of outage durations for intentional attacks is the same as the distribution of outage durations for all other causes.
 
+#### Alternative Hypothesis (H1):
+The distribution of outage durations for intentional attacks is different from the distribution of outage durations for all other causes.
 
----
+_threshold:_ 0.05%
+
+#### Conclusion:
+Given that a p-value of 0.2478 is significantly above our alpha level of 0.05, we would fail to reject the null hypothesis. There is not enough evidence to suggest that the distribution of outage durations for intentional attacks is significantly different from that of other causes. The observed difference could likely be due to random variation in the sample data, and no significant effect is detected that could be attributed to the cause being an intentional attack versus other causes.
+
 
 ## Framing a Prediction Problem
 
