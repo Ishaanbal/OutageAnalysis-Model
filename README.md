@@ -80,6 +80,7 @@ This graph shows what proportion of outages were caused by intentional attack in
 ></iframe>
 
 This Groupby table was used to aggregate over both YEAR and CAUSE.CATEGORY, results are interpreted in the graph above! 
+
 |   YEAR | CAUSE.CATEGORY                                                                                                                                                                                                            |
 |-------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |   2000 | {'severe weather': 0.5, 'system operability disruption': 0.23076923076923078, 'equipment failure': 0.19230769230769232, 'intentional attack': 0.07692307692307693}                                                        |
