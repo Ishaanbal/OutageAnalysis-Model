@@ -22,13 +22,16 @@ To begin working with our data, we had to clean it up through multiple steps tha
 ### Reading and Initial Cleaning
 Our analysis began by importing the `outage.xlsx` file, carefully skipping the initial metadata rows to ensure our DataFrame contained only pertinent information. We also eliminated rows and columns that did not contribute to our analysis, like the blank column that said 'variables' and the row specifying the units of each column. 
 
+
 ### Timestamp Conversion
 Next, we merged date and time columns into single datetime columns (`OUTAGE.START` and `OUTAGE.END`). This step was crucial for accurately calculating outage durations and understanding their distribution over time.
+
 
 ### Outage Duration Calculation
 The calculation of outage durations (`OUTAGE.DUR.DT`) from the `OUTAGE.START` and `OUTAGE.END` timestamps allowed us to get the duration of each outage event in datetime format. This metric was helpful in our exploratory analysis, enabling us to identify patterns and trends in outage occurrences and durations.
 
 Through these steps, our dataset was transformed into a structured and analyzable format, laying the groundwork for insightful exploration and analysis.
+
 
 ### Univariate Analysis
 
@@ -48,6 +51,7 @@ This chart shows how common each type of attack is, splitting up the data by cau
 ></iframe>
 This histogram shows the distributions of outage durations. This graph showed us that outages are heavily skewed towards lower durations. As the range of durations goes from almost no time to around 75 days, we encourage you to zoom in on this graph using the controls in the margins!
 
+
 ### Bivariate Analysis
 
 <iframe
@@ -57,6 +61,7 @@ This histogram shows the distributions of outage durations. This graph showed us
   frameborder="0"
 ></iframe>
 This scatter plot depicts the number of customers affected by an outage proportional to how long the outage lasted. 
+
 
 ### Interesting Aggregates
 
@@ -83,6 +88,8 @@ This graph shows what proportion of outages were caused by intentional attack in
 ---
 
 ## Hypothesis Testing
+
+
 
 ---
 
