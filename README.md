@@ -81,13 +81,30 @@ These stacked bar graphs shows the distributions of cause category in each clima
 ></iframe>
 This graph shows what proportion of outages were caused by intentional attack in each year from 2000 to 2016. We can observe that intentional attacks were rare from 2000 to 2003 as low percentages of outages were caused by attacks. Then, from 2004 to 2010, we see that there were zero intentional attacks in this dataset. In 2011, however, this number balloons to around 45%, and reaches a maximum of over 55% in 2016. 
 
+This Groupby table was used to aggregate over both YEAR and CAUSE.CATEGORY, results are interpreted in the graph above! 
+|   YEAR | CAUSE.CATEGORY                                                                                                                                                                                                            |
+|-------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|   2000 | {'severe weather': 0.5, 'system operability disruption': 0.23076923076923078, 'equipment failure': 0.19230769230769232, 'intentional attack': 0.07692307692307693}                                                        |
+|   2001 | {'system operability disruption': 0.6666666666666666, 'public appeal': 0.2, 'severe weather': 0.06666666666666667, 'equipment failure': 0.06666666666666667}                                                              |
+|   2002 | {'severe weather': 0.7647058823529411, 'system operability disruption': 0.17647058823529413, 'intentional attack': 0.058823529411764705}                                                                                  |
+|   2003 | {'severe weather': 0.6521739130434783, 'system operability disruption': 0.15217391304347827, 'equipment failure': 0.13043478260869565, 'intentional attack': 0.043478260869565216, 'public appeal': 0.021739130434782608} |
+|   2004 | {'severe weather': 0.7887323943661971, 'public appeal': 0.09859154929577464, 'equipment failure': 0.07042253521126761, 'system operability disruption': 0.04225352112676056}                                              |
+
 ---
 
 ## Assessment of Missingness
 
-### The Case for CAUSE.CATEGORY.DETAIL Being NMAR
+#### Missingness Analysis of OUTAGE.DURATION
+We chose to analyze the missingness of OUTAGE.DURATION, because it was the main metric we used to measure the intensity of an attack. This was also an important metric because the missingness of outage duration clearly correlated with the missingness of other time-based columns, like OUTAGE.START and OUTANGE.END, columns we were interested in using for prediction.
+
+Running permutation tests over the missingness of OUTAGE.DURATION and two columns: YEAR and CLIMATE.REGION, we ended up with the graphs below. 
+
+
+
+#### The Case for CAUSE.CATEGORY.DETAIL Being NMAR
 
 Upon initial analysis, the CAUSE.CATEGORY.DETAIL column's missingness seems to exhibit characteristics of NMAR. This inference is drawn from the observation that detailed cause information is more frequently absent in cases where the outage is of a sensitive nature, such as outages due to cyber-attacks or other security-related issues. This pattern suggests that the details of these outages might be deliberately withheld or not recorded due to their sensitive or controversial nature, making the missingness dependent on the unobserved data itself.
+
 
 ---
 
@@ -149,12 +166,13 @@ Looking at the types of features we had, we realized we had a strong focus on ti
 Along with the addition of this feature, after testing, we decided to remove the ANOMALY.LEVEL feature, as we believed it was counterproductive to our efforts in being able to generalize for the future. Removing complexity in this case will help us slightly prioritize recall over precision.
 
 #### Final Model Breakdown
-| Feature            | Type              | Preprocessing                                                                                          |
-|--------------------|-------------------|--------------------------------------------------------------------------------------------------------|
+
+| Feature            | Type              | Preprocessing                                                                                           |
+|--------------------|-------------------|---------------------------------------------------------------------------------------------------------|
 | NERC.REGION        | Categorical/Nominal | One hot encoding for all unique values, dropping the first encoded column to avoid multicollinearity. |
 | U.S._STATE         | Categorical/Nominal | One hot encoding for all unique values, dropping the first encoded column to avoid multicollinearity. |
-| MONTH              | Quantitative       | Standard scaled to address non-standard scale issues for Logistic Regression.                         |
-| OUTAGE.START.TIME  | Quantitative         | Transformed into a 24-hour format integer scale representing the hour of the day the outage started. Custom transformation using a FunctionTransformer.   |
+| MONTH              | Quantitative       | Standard scaled to address non-standard scale issues for Logistic Regression.                          |
+| OUTAGE.START.TIME  | Quantitative         | Transformed into a 24-hour format integer scale representing the hour of the day the outage started. Custom transformation using a FunctionTransformer. |
 
 
 #### Hyperparameter Search
