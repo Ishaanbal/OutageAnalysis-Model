@@ -2,16 +2,18 @@
 
 When we think of power outages, we usually associate them with crazy weather patterns or infrastructure failure. However, intentional attacks on our electricity grid are on the rise. These acts of domestic terror often cause serious damage and go unpunished. Therefore, we raise the research question of how to minimize intentional attacks to avoid Americans getting left in the dark.
 
-Research done as part of the class DSC80 at UCSD. By Ishaan Bal and Lacha Barton-Gluzman
+Research done as part of the class DSC80 at UCSD. 
+
+Ishaan Bal and Lacha Barton-Gluzman
 
 ---
 
 ## Introduction
 
-Our dataset covers power outages in the US from the years 2000 to 2016. Power outages due to intentional attacks are on the rise, and we must address them to avoid blackouts. In addition, these systems could be exploited by a malicious actor on an international scale. In order to avoid power outages and address this vulernability in our national security, we have to get better at stopping attackers from bringing down our power grid. 
+Our dataset covers power outages in the US from the years 2000 to 2016. Power outages due to intentional attacks are on the rise, and we must address them to avoid blackouts. In addition, these systems could be exploited by a malicious actor on an international scale. In order to avoid power outages and address this vulnerability in our national security, we have to get better at stopping attackers from bringing down our power grid. 
 
 In this project, we decided to study power outages caused by intentional attacks to determine how a power company could avoid outages due to factors like vandalism or sabotage.
-To explore our research question, we looked at plenty of data from our 1534 row dataset. We considered factors like when the outage happened (`YEAR`, `MONTH`), where the outage happened (`U.S._STATE`, `CLIMATE.REGION`, `NERC.REGION`), why the outage happened (`CAUSE.CATEGORY`, `CAUSE.CATEGORY.DETAIL`), and the impact of the outage (`OUTAGE.DURATION`, `CUSTOMERS.AFFECTED`).
+To explore our research question, we looked at plenty of data from our 1534-row dataset. We considered factors like when the outage happened (`YEAR`, `MONTH`), where the outage happened (`U.S._STATE`, `CLIMATE.REGION`, `NERC.REGION`), why the outage happened (`CAUSE.CATEGORY`, `CAUSE.CATEGORY.DETAIL`), and the impact of the outage (`OUTAGE.DURATION`, `CUSTOMERS.AFFECTED`).
 
 ---
 
@@ -63,7 +65,7 @@ This scatter plot depicts the number of customers affected by an outage proporti
 
 ### Interesting Aggregates
 
-These stacked bar graphs shows the distributions of cause category in each climate region in the US. This chart highlights how intentional attacks are much more likely to cause a power outage in the Northwest and Southwest climate regions. 
+These stacked bar graphs show the distributions of cause categories in each climate region in the US. This chart highlights how intentional attacks are much more likely to cause a power outage in the Northwest and Southwest climate regions. 
 <iframe
   src="assets/aggregation_analysis1.html"
   width="800"
@@ -71,7 +73,7 @@ These stacked bar graphs shows the distributions of cause category in each clima
   frameborder="0"
 ></iframe>
 
-This graph shows what proportion of outages were caused by intentional attack in each year from 2000 to 2016. We can observe that intentional attacks were rare from 2000 to 2003 as low percentages of outages were caused by attacks. Then, from 2004 to 2010, we see that there were zero intentional attacks in this dataset. In 2011, however, this number balloons to around 45%, and reaches a maximum of over 55% in 2016. 
+This graph shows what proportion of outages were caused by intentional attacks in each year from 2000 to 2016. We can observe that intentional attacks were rare from 2000 to 2003 as low percentages of outages were caused by attacks. Then, from 2004 to 2010, we see that there were zero intentional attacks in this dataset. In 2011, however, this number ballooned to around 45%, and reached a maximum of over 55% in 2016. 
 <iframe
   src="assets/aggregation_analysis2.html"
   width="800"
@@ -94,12 +96,12 @@ This Groupby table was used to aggregate over both YEAR and CAUSE.CATEGORY, resu
 ## Assessment of Missingness
 
 #### Missingness Analysis of `OUTAGE.DURATION`
-We chose to analyze the missingness of `OUTAGE.DURATION`, because it was the main metric we used to measure the intensity of an attack. This was also an important metric because the missingness of outage duration clearly correlated with the missingness of other time-based columns, like `OUTAGE.START` and `OUTAGE.END`, columns we were interested in using for prediction.
+We chose to analyze the missingness of `OUTAGE.DURATION` because it was the main metric we used to measure the intensity of an attack. This was also an important metric because the missingness of outage duration clearly correlated with the missingness of other time-based columns, like `OUTAGE.START` and `OUTAGE.END`, columns we were interested in using for prediction.
 
 Running permutation tests over the missingness of `OUTAGE.DURATION` and two columns: `YEAR` and `CLIMATE.REGION`, we ended up with the graphs below. 
 
 `YEAR`: p-value = 0.0
-The result for `YEAR`, with a p-value of 0, suggests a strong association between the year and the missingness of `OUTAGE.DURATION`. This is consistent with the data being missing at random (MAR) with respect to `YEAR`.
+The result for `YEAR`, with a p-value of 0, suggests a strong association between the year and the missingness of `OUTAGE.DURATION`. This is consistent with the data missing at random (MAR) with respect to `YEAR`.
 <iframe src="assets/MAR_example.html" width="800" height="600" frameborder="0" ></iframe>
 
 `CLIMATE.REGION`: p-value = 0.292
@@ -190,7 +192,7 @@ We chose to iterate over the max_iter parameter for our Linear Classifier. With 
 _Training Accuracy: ~0.8139
 Testing  Accuracy: ~0.8492_
 
-We were very happy with the level of accuracy we were able to get our model to. Scores in this second iteration were consistently around 10% heigher, and the LinearClassifier continued to generalize well, with training and testing accuracies consistently being similar. Testing accuracy also continued to fluctuate higher than training accuracy semi-often, a feature of the first model we wanted to preserve. Overall, we would characterize this as a "good" model.
+We were very happy with the level of accuracy we were able to get our model to. Scores in this second iteration were consistently around 10% higher, and the LinearClassifier continued to generalize well, with training and testing accuracies consistently being similar. Testing accuracy also continued to fluctuate higher than training accuracy semi-often, a feature of the first model we wanted to preserve. Overall, we would characterize this as a "good" model.
 
 
 ---
