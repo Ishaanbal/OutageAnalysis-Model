@@ -100,11 +100,11 @@ We chose to analyze the missingness of `OUTAGE.DURATION` because it was the main
 
 Running permutation tests over the missingness of `OUTAGE.DURATION` and two columns: `YEAR` and `CLIMATE.REGION`, we ended up with the graphs below. 
 
-`YEAR`: p-value = 0.0
+**`YEAR`: p-value = 0.0**
 The result for `YEAR`, with a p-value of 0, suggests a strong association between the year and the missingness of `OUTAGE.DURATION`. This is consistent with the data missing at random (MAR) with respect to `YEAR`.
 <iframe src="assets/MAR_example.html" width="800" height="600" frameborder="0" ></iframe>
 
-`CLIMATE.REGION`: p-value = 0.292
+**`CLIMATE.REGION`: p-value = 0.292**
 On the other hand, the p-value for `CLIMATE.REGION` is around 0.29, which does not indicate a significant association. This suggests that the missingness of `OUTAGE.DURATION` is not dependent on the `CLIMATE.REGION`, at least not to a statistically significant extent within the number of permutations tested.
 <iframe src="assets/non_MAR_example.html" width="800" height="600" frameborder="0" ></iframe>
 
@@ -125,15 +125,18 @@ The distribution of outage durations for intentional attacks is the same as the 
 The distribution of outage durations for intentional attacks is different from the distribution of outage durations for all other causes.
 
 _threshold:_ 0.05%
+#### Methodology:
+For a test statistic, we chose to use the absolute difference in group means, as we were aiming to measure the difference (without regard for positive or negative) between populations. 
+We chose to do our analysis over the distribution of the column `OUTAGE.DURATION`. We took a sample of durations where the attacks were intentional (`IS_INTENTIONAL`), and then permuted over the population distribution of `OUTAGE.DURATION`, creating sample ststistic.
 
 #### Conclusion:
-Given that a p-value of 0.2478 is significantly above our alpha level of 0.05, we would fail to reject the null hypothesis. There is not enough evidence to suggest that the distribution of outage durations for intentional attacks is significantly different from that of other causes. The observed difference could likely be due to random variation in the sample data, and no significant effect is detected that could be attributed to the cause being an intentional attack versus other causes.
+The resulting p-value was consistently ~0.25. This value is significantly above our alpha level of 0.05; thereby we fail to reject the null hypothesis. There is not enough evidence to suggest that the distribution of outage durations for intentional attacks is significantly different from that of other causes. The observed difference could likely be due to random variation in the sample data, and no significant effect is detected that could be attributed to the cause being an intentional attack versus other causes.
 
 
 ## Framing a Prediction Problem
 
 Based on the exploration above, our immediate question was as follows: _**Based on the data available just moments after a power outage, are we able to predict whether the outage was due to an intentional attack?**_
-For us, this boiled down to a Binary Classification Task, we used the four features `OUTAGE.START.TIME`, `MONTH`, `NERC.REGION`, `U.S._STATE` (representing a spread of time and geographical info). We will predict the response variable `IS_INTENTIONAL`, a column we engineered from `CAUSE.CATEGORY` -- evaluating to True if the cause was an intentional attack and False otherwise. We chose this instead of multiclass classification since we were only concerned with predicting the intentional attacks in our research question, and believed that we could get more accurate and generalizable results predicting a binary value, as opposed to all seven of the classes present in `CAUSE.CATEGORY`. 
+For us, this boiled down to a **Binary Classification Task**, we used the four features `OUTAGE.START.TIME`, `MONTH`, `NERC.REGION`, `U.S._STATE` (representing a spread of time and geographical info). We will predict the response variable `IS_INTENTIONAL`, a column we engineered from `CAUSE.CATEGORY` -- evaluating to True if the cause was an intentional attack and False otherwise. We chose this instead of multiclass classification since we were only concerned with predicting the intentional attacks in our research question, and believed that we could get more accurate and generalizable results predicting a binary value, as opposed to all seven of the classes present in `CAUSE.CATEGORY`. 
 
 To measure the effectiveness of our model, we used accuracy. We chose accuracy because while it was important for us to be precise, we also felt that it was just as important to think about recall, and our ability to generalize. False Negatives are costly in our scenario because it would mean an intentional attack going unnoticed, and perpetrators getting away. Conversely, False Positives are also important, due to their ability to result in a waste of resources, as additional support could be dispatched towards the site of a false intentional attack. These reasons led us to accuracy, which considers both true and false negatives equally. 
 
@@ -192,7 +195,7 @@ We chose to iterate over the max_iter parameter for our Linear Classifier. With 
 _Training Accuracy: ~0.8139
 Testing  Accuracy: ~0.8492_
 
-We were very happy with the level of accuracy we were able to get our model to. Scores in this second iteration were consistently around 10% higher, and the LinearClassifier continued to generalize well, with training and testing accuracies consistently being similar. Testing accuracy also continued to fluctuate higher than training accuracy semi-often, a feature of the first model we wanted to preserve. Overall, we would characterize this as a "good" model.
+We were very satisfied with the level of accuracy we were able to get our model to. Scores in this second iteration were consistently around 10% higher, and the LinearClassifier continued to generalize well, with training and testing accuracies consistently being similar. Testing accuracy also continued to fluctuate higher than training accuracy semi-often, a feature of the first model we wanted to preserve. Overall, we would characterize this as a "good" model.
 
 
 ---
