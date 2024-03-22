@@ -38,7 +38,6 @@ Through these steps, our dataset was transformed into a structured and analyzabl
   height="600"
   frameborder="0"
 ></iframe>
-
 This chart shows how common each type of attack is, splitting up the data by cause category.
 
 <iframe
@@ -47,7 +46,6 @@ This chart shows how common each type of attack is, splitting up the data by cau
   height="600"
   frameborder="0"
 ></iframe>
-
 This histogram shows the distributions of outage durations. This graph showed us that outages are heavily skewed towards lower durations. As the range of durations goes from almost no time to around 75 days, we encourage you to zoom in on this graph using the controls in the margins!
 
 ### Bivariate Analysis
@@ -58,7 +56,6 @@ This histogram shows the distributions of outage durations. This graph showed us
   height="600"
   frameborder="0"
 ></iframe>
-
 This scatter plot depicts the number of customers affected by an outage proportional to how long the outage lasted. 
 
 ### Interesting Aggregates
@@ -69,7 +66,6 @@ This scatter plot depicts the number of customers affected by an outage proporti
   height="600"
   frameborder="0"
 ></iframe>
-
 These stacked bar graphs shows the distributions of cause category in each climate region in the US. This chart highlights how intentional attacks are much more likely to cause a power outage in the Northwest and Southwest climate regions. 
 
 <iframe
@@ -78,7 +74,6 @@ These stacked bar graphs shows the distributions of cause category in each clima
   height="600"
   frameborder="0"
 ></iframe>
-
 This graph shows what proportion of outages were caused by intentional attack in each year from 2000 to 2016. We can observe that intentional attacks were rare from 2000 to 2003 as low percentages of outages were caused by attacks. Then, from 2004 to 2010, we see that there were zero intentional attacks in this dataset. In 2011, however, this number balloons to around 45%, and reaches a maximum of over 55% in 2016. 
 
 ---
