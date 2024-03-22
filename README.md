@@ -33,23 +33,27 @@ Through these steps, our dataset was transformed into a structured and analyzabl
 ### Univariate Analysis
 
 <iframe
-  src="univariate_analysis1/file-name.html"
+  src="assets/univariate_analysis1/file-name.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
 
+This chart shows how common each type of attack is, splitting up the data by cause category.
+
 <iframe
-  src="univariate_analysis2/file-name.html"
+  src="assets/univariate_analysis2/file-name.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
+
+
 
 ### Bivariate Analysis
 
 <iframe
-  src="bivariate_analysis/file-name.html"
+  src="assets/bivariate_analysis/file-name.html"
   width="800"
   height="600"
   frameborder="0"
@@ -60,7 +64,7 @@ This scatter plot depicts the number of customers affected by an outage proporti
 ### Interesting Aggregates
 
 <iframe
-  src="aggregation_analysis1/file-name.html"
+  src="assets/aggregation_analysis1/file-name.html"
   width="800"
   height="600"
   frameborder="0"
@@ -69,7 +73,7 @@ This scatter plot depicts the number of customers affected by an outage proporti
 These stacked bar graphs shows the distributions of cause category in each climate region in the US. This chart highlights how intentional attacks are much more likely to cause a power outage in the Northwest and Southwest climate regions. 
 
 <iframe
-  src="aggregation_analysis2/file-name.html"
+  src="assets/aggregation_analysis2/file-name.html"
   width="800"
   height="600"
   frameborder="0"
