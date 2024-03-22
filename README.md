@@ -31,6 +31,10 @@ To explore our research question, we looked at plenty of data from our 1534 row 
 
 ## Framing a Prediction Problem
 
+
+Based on info available in the first few moments of a power outage, can we perform binary classification for whether the attack is intentional or not? We used the OUTAGE.START.TIME, MONTH, NERC.REGION, U.S._STATE (time and geographical info). We are predicting for the response variable IS_INTENTIONAL that is a column we engineered from CAUSE.CATEGORY evaluating to True if the cause was intentional attack and False otherwise. We chose this instead of multiclass classification since we’re only concerned with predicting the intentional attacks in our research question. To measure this we used accuracy. We chose accuracy because while it was important for us to be precise and accuracy considers precision, we felt that it was more important to think about recall, specifically because a false negative would have much more significant consequences than false positive. 
+
+
 ---
 
 ## Baseline Model
