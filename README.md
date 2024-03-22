@@ -85,6 +85,10 @@ This graph shows what proportion of outages were caused by intentional attack in
 
 ## Assessment of Missingness
 
+### The Case for CAUSE.CATEGORY.DETAIL Being NMAR
+
+Upon initial analysis, the CAUSE.CATEGORY.DETAIL column's missingness seems to exhibit characteristics of NMAR. This inference is drawn from the observation that detailed cause information is more frequently absent in cases where the outage is of a sensitive nature, such as outages due to cyber-attacks or other security-related issues. This pattern suggests that the details of these outages might be deliberately withheld or not recorded due to their sensitive or controversial nature, making the missingness dependent on the unobserved data itself.
+
 ---
 
 ## Hypothesis Testing
