@@ -134,7 +134,7 @@ The model shows strong performance based on our observed accuracy scores, with a
 #### Additional Features
 Looking at the types of features we had, we realized we had a strong focus on time, without much consideration for geography. Split into multiple columns after OneHot Encoding, (the **us state** and **NERC regions** as partitioned by the North American Electric Reliability Corporation) will serve as our model insight into the geographical location an outage is occurring at.
 
-Along with the addition of this feature, after testing, we decided to remove the ANOMALY.LEVEL feature, as we believed it was counterproductive to our efforts in being able to generalize for future. Removing complexity in this case will help us slightly prioritize recall over precision.
+Along with the addition of this feature, after testing, we decided to remove the ANOMALY.LEVEL feature, as we believed it was counterproductive to our efforts in being able to generalize for the future. Removing complexity in this case will help us slightly prioritize recall over precision.
 
 #### Final Model Breakdown
 | Feature            | Type              | Preprocessing                                                                                          |
