@@ -2,10 +2,6 @@
 
 When we think of power outages, we usually associate them with crazy weather patterns or infrastructure failure. However, intentional attacks on our electricity grid are on the rise. These acts of domestic terror often cause serious damage and go unpunished. Therefore, we raise the research question of how to minimize intentional attacks to avoid Americans getting left in the dark.
 
-Research done as part of the class DSC80 at UCSD. 
-
-Ishaan Bal and Lacha Barton-Gluzman
-
 ---
 
 ## Introduction
