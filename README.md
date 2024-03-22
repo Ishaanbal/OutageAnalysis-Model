@@ -42,15 +42,41 @@ Through these steps, our dataset was transformed into a structured and analyzabl
 
 ## Framing a Prediction Problem
 
+Based on the exploration above, our immediate question was as follows: _**Based on the data available just moments after a power outage, are we able to predict whether the outage was due to an intentional attack?**_
+For us, this boiled down to a Binary Classification Task, we used the four features OUTAGE.START.TIME, MONTH, NERC.REGION, U.S._STATE (representing a spread of time and geographical info). We will predict the response variable IS_INTENTIONAL, a column we engineered from CAUSE.CATEGORY -- evaluating to True if the cause was an intentional attack and False otherwise. We chose this instead of multiclass classification since we were only concerned with predicting the intentional attacks in our research question, and believed that we could get more accurate and generalizable results predicting a binary value, as opposed to all seven of the classes present in CAUSE.CATEGORY. 
 
-Based on info available in the first few moments of a power outage, can we perform binary classification for whether the attack is intentional or not? We used the OUTAGE.START.TIME, MONTH, NERC.REGION, U.S._STATE (time and geographical info). We are predicting for the response variable IS_INTENTIONAL that is a column we engineered from CAUSE.CATEGORY evaluating to True if the cause was intentional attack and False otherwise. We chose this instead of multiclass classification since we’re only concerned with predicting the intentional attacks in our research question. To measure this we used accuracy. We chose accuracy because while it was important for us to be precise and accuracy considers precision, we felt that it was more important to think about recall, specifically because a false negative would have much more significant consequences than false positive. 
+To measure the effectiveness of our model, we used accuracy. We chose accuracy because while it was important for us to be precise, we also felt that it was just as important to think about recall, and our ability to generalize. False Negatives are costly in our scenario because it would mean an intentional attack going unnoticed, and perpetrators getting away. Conversely, False Positives are also important, due to their ability to result in a waste of resources, as additional support could be dispatched towards the site of a false intentional attack. These reasons led us to accuracy, which considers both true and false negatives equally. 
 
 
 ---
 
 ## Baseline Model
 
----
+#### Model Description
+The model we chose to build on was a Logistic Regression Classifier, predominantly used for binary classification tasks. 
+It aims to predict whether a power outage is intentional (IS_INTENTIONAL = 1) or not (IS_INTENTIONAL = 0).
+
+#### Model Parameters
+**Solver**: The logistic regression uses the 'saga' solver, which was chosen due to its efficiency in large datasets and support for regularization; an issue we were running into.
+**Max Iterations**: The maximum number of iterations is set to 1000 to allow the solver ample opportunity to converge. Previous testing on lower values for this hyperparameter resulted in inconsistent non-convergence.
+
+#### Features & Preprocessing
+In this first iteration of our model, we had two quantitative features, (the **month** and **time of day**), along with two categorical features, split into multiple columns after OneHot Encoding, (the **us state** and **NERC regions** as partitioned by the North American Electric Reliability Corporation).
+
+| Feature            | Type              | Preprocessing                                                                                          |
+|--------------------|-------------------|--------------------------------------------------------------------------------------------------------|
+| NERC.REGION        | Categorical/Nominal | One hot encoding for all unique values, dropping the first encoded column to avoid multicollinearity. |
+| U.S._STATE         | Categorical/Nominal | One hot encoding for all unique values, dropping the first encoded column to avoid multicollinearity. |
+| MONTH              | Quantitative       | Standard scaled to address non-standard scale issues for Logistic Regression.                         |
+| OUTAGE.START.TIME  | Numerical         | Transformed into a 24-hour format integer scale representing the hour of the day the outage started. Custom transformation using a FunctionTransformer.   |
+
+#### Base Model Assessment
+**Model Performance**
+_Training Accuracy: ~0.8139
+Testing  Accuracy: ~0.8492_
+
+The model shows strong performance based on our observed accuracy scores, with a score on the testing set that fluctuates very close to the training set, sometimes even scoring higher. This indicates effective generalization to unseen data. Going into the future, this generalization is what we are looking for when attempting to determine whether additional specific support should be dispatched to look into a power outage.
+
 
 ## Final Model
 
