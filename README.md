@@ -107,31 +107,55 @@ To measure the effectiveness of our model, we used accuracy. We chose accuracy b
 
 #### Model Description
 The model we chose to build on was a Logistic Regression Classifier, predominantly used for binary classification tasks. 
-It aims to predict whether a power outage is intentional (IS_INTENTIONAL = 1) or not (IS_INTENTIONAL = 0).
+Our model aims to predict whether a power outage is intentional (IS_INTENTIONAL = 1) or not (IS_INTENTIONAL = 0).
 
 #### Model Parameters
 **Solver**: The logistic regression uses the 'saga' solver, which was chosen due to its efficiency in large datasets and support for regularization; an issue we were running into.
 **Max Iterations**: The maximum number of iterations is set to 1000 to allow the solver ample opportunity to converge. Previous testing on lower values for this hyperparameter resulted in inconsistent non-convergence.
 
 #### Features & Preprocessing
-In this first iteration of our model, we had two quantitative features, (the **month** and **time of day**), along with two categorical features, split into multiple columns after OneHot Encoding, (the **us state** and **NERC regions** as partitioned by the North American Electric Reliability Corporation).
+In this first iteration of our model, we attempted to think from the perspective of a prospective vandal, and had the thought that the time and condition of day could be very impactful to the success of an intentional attack. Thus, we chose two quantitative features, (the **month** and **time of day**), along with a third numerical feature, the anomaly level, a variable describing the level of current freak weather conditions in a specific region. 
 
+| Feature            | Type              | Preprocessing                                                                                          |
+|--------------------|-------------------|--------------------------------------------------------------------------------------------------------|
+| ANOMALY.LEVEL        | Quantitative | Transformed using the absolute value, as we wanted to get the magnitude of freak weather events in both directions (hot/cold) |
+| MONTH              | Quantitative       | Standard scaled to address non-standard scale issues for Logistic Regression.                         |
+| OUTAGE.START.TIME  | Quantitative         | Transformed into a 24-hour format integer scale representing the hour of the day the outage started. Custom transformation using a FunctionTransformer.   |
+
+#### Base Model Assessment
+**Model Performance**
+_Training Accuracy: ~0.7237
+Testing  Accuracy: ~0.7359_
+
+The model shows strong performance based on our observed accuracy scores, with a score on the testing set that fluctuates very close to the training set, sometimes even scoring higher. This indicates effective generalization to unseen data. Going into the future, this generalization is what we are looking for when attempting to determine whether additional specific support should be dispatched to look into a power outage. These reasons lead us to believe our model is looking good... or at the very least moving in a good direction!
+
+
+## Final Model
+#### Additional Features
+Looking at the types of features we had, we realized we had a strong focus on time, without much consideration for geography. Split into multiple columns after OneHot Encoding, (the **us state** and **NERC regions** as partitioned by the North American Electric Reliability Corporation) will serve as our model insight into the geographical location an outage is occurring at.
+
+Along with the addition of this feature, after testing, we decided to remove the ANOMALY.LEVEL feature, as we believed it was counterproductive to our efforts in being able to generalize for future. Removing complexity in this case will help us slightly prioritize recall over precision.
+
+#### Final Model Breakdown
 | Feature            | Type              | Preprocessing                                                                                          |
 |--------------------|-------------------|--------------------------------------------------------------------------------------------------------|
 | NERC.REGION        | Categorical/Nominal | One hot encoding for all unique values, dropping the first encoded column to avoid multicollinearity. |
 | U.S._STATE         | Categorical/Nominal | One hot encoding for all unique values, dropping the first encoded column to avoid multicollinearity. |
 | MONTH              | Quantitative       | Standard scaled to address non-standard scale issues for Logistic Regression.                         |
-| OUTAGE.START.TIME  | Numerical         | Transformed into a 24-hour format integer scale representing the hour of the day the outage started. Custom transformation using a FunctionTransformer.   |
+| OUTAGE.START.TIME  | Quantitative         | Transformed into a 24-hour format integer scale representing the hour of the day the outage started. Custom transformation using a FunctionTransformer.   |
 
-#### Base Model Assessment
+
+#### Hyperparameter Search
+We chose to iterate over the max_iter parameter for our Linear Classifier. With a simple loop over different iteration sizes, we found that, interestingly, even though a recursion size of around 100-200 was most effective, convergence would not be reached consistently. Instead, a value around 600 max iterations had nearly identical accuracy, while being able to converge every time we ran it.  
+
+
+#### Final Model Assessment
 **Model Performance**
 _Training Accuracy: ~0.8139
 Testing  Accuracy: ~0.8492_
 
-The model shows strong performance based on our observed accuracy scores, with a score on the testing set that fluctuates very close to the training set, sometimes even scoring higher. This indicates effective generalization to unseen data. Going into the future, this generalization is what we are looking for when attempting to determine whether additional specific support should be dispatched to look into a power outage.
+We were very happy with the level of accuracy we were able to get our model to. Scores in this second iteration were consistently around 10% heigher, and the LinearClassifier continued to generalize well, with training and testing accuracies consistently being similar. Testing accuracy also continued to fluctuate higher than training accuracy semi-often, a feature of the first model we wanted to preserve. Overall, we would characterize this as a "good" model.
 
-
-## Final Model
 
 ---
 
