@@ -1,6 +1,6 @@
 # Analyzing Intentional Attacks on Electricity Providers
 
-When we think of power outages, we usually associate them with crazy weather patterns or infrastructure failure. However, intentional attacks to our electricity grid are on the rise. These acts of domestic terror often cause serious damage and go unpunished. Therefore, we raise the research question of how to minimize these attacks to avoid Americans getting left in the dark.
+When we think of power outages, we usually associate them with crazy weather patterns or infrastructure failure. However, intentional attacks on our electricity grid are on the rise. These acts of domestic terror often cause serious damage and go unpunished. Therefore, we raise the research question of how to minimize intentional attacks to avoid Americans getting left in the dark.
 
 Research done as part of the class DSC80 at UCSD. By Ishaan Bal and Lacha Barton-Gluzman
 
@@ -8,10 +8,10 @@ Research done as part of the class DSC80 at UCSD. By Ishaan Bal and Lacha Barton
 
 ## Introduction
 
-Our dataset covers power outages from the years 2000 to 2016 in the US. Power outages due to intentional attacks are on the rise, and we must address them to avoid blackouts. In addition, these systems could be exploited by a malicious actor on a more international scale. In order to avoid power outages and address this vulernability in our national security, we have to get better at stopping attackers from bringing down our power grid. 
+Our dataset covers power outages in the US from the years 2000 to 2016. Power outages due to intentional attacks are on the rise, and we must address them to avoid blackouts. In addition, these systems could be exploited by a malicious actor on an international scale. In order to avoid power outages and address this vulernability in our national security, we have to get better at stopping attackers from bringing down our power grid. 
 
 In this project, we decided to study power outages caused by intentional attacks to determine how a power company could avoid outages due to factors like vandalism or sabotage.
-To explore our research question, we looked at plenty of data from our 1534 row dataset. We considered factors like when the outage happened (YEAR, MONTH), where the outage happened (U.S._STATE, CLIMATE.REGION, NERC.REGION), why the outage happened (CAUSE.CATEGORY, CAUSE.CATEGORY.DETAIL), and the impact of the outage (OUTAGE.DURATION, CUSTOMERS.AFFECTED).
+To explore our research question, we looked at plenty of data from our 1534 row dataset. We considered factors like when the outage happened (`YEAR`, `MONTH`), where the outage happened (`U.S._STATE`, `CLIMATE.REGION`, `NERC.REGION`), why the outage happened (`CAUSE.CATEGORY`, `CAUSE.CATEGORY.DETAIL`), and the impact of the outage (`OUTAGE.DURATION`, `CUSTOMERS.AFFECTED`).
 
 ---
 
@@ -35,51 +35,49 @@ Through these steps, our dataset was transformed into a structured and analyzabl
 
 ### Univariate Analysis
 
+This chart shows how common each type of attack is, splitting up the data by cause category.
 <iframe
   src="assets/univariate_analysis1.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
-This chart shows how common each type of attack is, splitting up the data by cause category.
 
+This histogram shows the distributions of outage durations. This graph showed us that outages are heavily skewed towards lower durations. As the range of durations goes from almost no time to around 75 days, we encourage you to zoom in on this graph using the controls in the margins!
 <iframe
   src="assets/univariate_analysis2.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
-This histogram shows the distributions of outage durations. This graph showed us that outages are heavily skewed towards lower durations. As the range of durations goes from almost no time to around 75 days, we encourage you to zoom in on this graph using the controls in the margins!
-
 
 ### Bivariate Analysis
 
+This scatter plot depicts the number of customers affected by an outage proportional to how long the outage lasted. 
 <iframe
   src="assets/bivariate_analysis.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
-This scatter plot depicts the number of customers affected by an outage proportional to how long the outage lasted. 
-
 
 ### Interesting Aggregates
 
+These stacked bar graphs shows the distributions of cause category in each climate region in the US. This chart highlights how intentional attacks are much more likely to cause a power outage in the Northwest and Southwest climate regions. 
 <iframe
   src="assets/aggregation_analysis1.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
-These stacked bar graphs shows the distributions of cause category in each climate region in the US. This chart highlights how intentional attacks are much more likely to cause a power outage in the Northwest and Southwest climate regions. 
 
+This graph shows what proportion of outages were caused by intentional attack in each year from 2000 to 2016. We can observe that intentional attacks were rare from 2000 to 2003 as low percentages of outages were caused by attacks. Then, from 2004 to 2010, we see that there were zero intentional attacks in this dataset. In 2011, however, this number balloons to around 45%, and reaches a maximum of over 55% in 2016. 
 <iframe
   src="assets/aggregation_analysis2.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
-This graph shows what proportion of outages were caused by intentional attack in each year from 2000 to 2016. We can observe that intentional attacks were rare from 2000 to 2003 as low percentages of outages were caused by attacks. Then, from 2004 to 2010, we see that there were zero intentional attacks in this dataset. In 2011, however, this number balloons to around 45%, and reaches a maximum of over 55% in 2016. 
 
 This Groupby table was used to aggregate over both YEAR and CAUSE.CATEGORY, results are interpreted in the graph above! 
 |   YEAR | CAUSE.CATEGORY                                                                                                                                                                                                            |
