@@ -169,4 +169,23 @@ We were very happy with the level of accuracy we were able to get our model to. 
 
 ## Fairness Analysis
 
+### Groups and Evaluation Metric
+- **Group X:** States with a Per Capita Real GSP (Gross State Product) relative to the total Per Capita Real GDP of the U.S. **greater than 1** (Richer States).
+- **Group Y:** States with a Per Capita Real GSP relative to the total Per Capita Real GDP of the U.S. **less than or equal to 1** (Poorer States).
+- The evaluation metric chosen for this analysis is **accuracy**, which quantifies the proportion of correct predictions out of all predictions made by the model.
+
+### Null and Alternative Hypotheses
+- **Null Hypothesis (H0):** The model's performance is fair across both groups. The accuracy for predicting intentional power outages in richer states is roughly the same as in poorer states, and any observed differences are due to random chance.
+- **Alternative Hypothesis (H1):** The model's performance is not fair across both groups. The accuracy for predicting intentional power outages significantly differs between richer and poorer states.
+
+### Choice of Test Statistic and Significance Level
+- **Test Statistic:** The absolute difference in accuracy between Group X (richer states) and Group Y (poorer states).
+- **Significance Level (α):** 0.05, indicating a 5% risk of concluding a difference in model performance across groups when there is none.
+
+### Resulting p-Value
+- **p-value:** The p-value obtained from the permutation test. This value indicates the probability of observing a test statistic as extreme as, or more extreme than, the one observed if the null hypothesis were true.
+
+Based on the p-value obtained from the permutation test:
+- **p-value > 0.05**, we fail to reject the null hypothesis, indicating insufficient evidence to conclude that the model's performance differs significantly across richer and poorer states. This suggests that any observed differences in accuracy across these groups can be attributed to random chance, and the model can be considered fair with respect to predicting intentional power outages based on economic status.
+
 ---
